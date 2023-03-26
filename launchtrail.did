@@ -72,4 +72,6 @@ service : (InitialConfig) -> {
   configure : (Config) -> ();
   stats : () -> (Stats) query;
   records : (nat64, nat64) -> (vec Record) query;
+  wallet_balance : () -> (nat64) query;
+  wallet_receive : () -> ();
 }

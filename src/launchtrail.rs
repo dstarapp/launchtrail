@@ -631,6 +631,21 @@ async fn revoke(args: RevokeArgs) -> Result<(), RevokeError> {
     })
 }
 
+#[query]
+#[candid::candid_method(query)]
+fn wallet_balance() -> u64 {
+    ic_cdk::api::canister_balance()
+}
+
+#[update]
+#[candid::candid_method(update)]
+fn wallet_receive() -> () {
+    let available = ic_cdk::api::call::msg_cycles_available128();
+    if available > 0 {
+        ic_cdk::api::call::msg_cycles_accept128(available);
+    };
+}
+
 candid::export_service!();
 #[query]
 #[candid_method(query)]
